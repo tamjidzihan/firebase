@@ -1,0 +1,24 @@
+{
+  "rules": {
+    ".read": "true",  // 2023-3-29
+    ".write": "true",  // 2023-3-29
+      "websites": {
+        "$someid":{
+          ".indexOn": ["website_url"]
+        }
+      },
+      "iplists": {
+        "$someid":{
+          ".indexOn": ["website_ip","website_port", "active"]
+        }
+      },
+      "emails": {
+        "$someid":{
+          ".indexOn": ["email","userName"]
+        }
+      },
+      "used_ip": {
+          ".indexOn": ["website_ip","website_port", "active","user_id"]
+      }
+  }
+}
