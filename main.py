@@ -1,14 +1,14 @@
 import pyrebase
 
 config = {
-  "apiKey": "AIzaSyCSCJVxNn8N28Hpxt2SuBQz2-HyqMFAeH8",
-  "authDomain": "testproject-24d54.firebaseapp.com",
-  "databaseURL": "https://testproject-24d54-default-rtdb.asia-southeast1.firebasedatabase.app",
-  "projectId": "testproject-24d54",
-  "storageBucket": "testproject-24d54.appspot.com",
-  'messagingSenderId': "865886225620",
-  'appId': "1:865886225620:web:c3f95aec8e9d0dc4ede741"
-}
+    "apiKey": "AIzaSyCSCJVxNn8N28Hpxt2SuBQz2-HyqMFAeH8",
+    "authDomain": "testproject-24d54.firebaseapp.com",
+    "databaseURL": "https://testproject-24d54-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "projectId": "testproject-24d54",
+    "storageBucket": "testproject-24d54.appspot.com",
+    "messagingSenderId": "865886225620",
+    "appId": "1:865886225620:web:30a7aa1f51f6239bede741"
+  };
 
 
 firebase = pyrebase.initialize_app(config)
