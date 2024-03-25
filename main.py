@@ -1,15 +1,14 @@
 import pyrebase
 
 config = {
-    "apiKey": "AIzaSyCSCJVxNn8N28Hpxt2SuBQz2-HyqMFAeH8",
-    "authDomain": "testproject-24d54.firebaseapp.com",
-    "databaseURL": "https://testproject-24d54-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "projectId": "testproject-24d54",
-    "storageBucket": "testproject-24d54.appspot.com",
-    "messagingSenderId": "865886225620",
-    "appId": "1:865886225620:web:30a7aa1f51f6239bede741"
-  };
-
+  "apiKey": "AIzaSyCSCJVxNn8N28Hpxt2SuBQz2-HyqMFAeH8",
+  "authDomain": "testproject-24d54.firebaseapp.com",
+  "databaseURL": "https://testproject-24d54-default-rtdb.asia-southeast1.firebasedatabase.app",
+  "projectId": "testproject-24d54",
+  "storageBucket": "testproject-24d54.appspot.com",
+  "messagingSenderId": "865886225620",
+  "appId": "1:865886225620:web:30a7aa1f51f6239bede741"
+}
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
@@ -28,18 +27,24 @@ user_info =  {
 # database.child("user").update({"newData": "Hello, Firebase user 1 update!"})
 
 
-email = "admin@admin.com"
-password = "admin1234"
-# try:
-#     user = auth.create_user_with_email_and_password(email, password)
-#     print("User created successfully:", user)
-# except Exception as e:
-#     print("Error creating user:", e)
+# email = "admin@admin.com"
+# password = "admin1234"
+
+email = "root@root.com"
+password = "root1234"
 
 
 
 try:
-    user = auth.sign_in_with_email_and_password(email, password)
-    print("User logged in successfully:", user)
+    user = auth.create_user_with_email_and_password(email, password)
+    print("User created successfully:", user)
 except Exception as e:
-    print("Error logging in:", e)
+    print("Error creating user:", e)
+
+
+
+# try:
+#     user = auth.sign_in_with_email_and_password(email, password)
+#     print("User logged in successfully:", user)
+# except Exception as e:
+#     print("Error logging in:", e)
