@@ -2,7 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
+import random
+import string
 from datetime import datetime
+
 
 
 #firebase lib
@@ -22,30 +25,46 @@ config = {
   "appId": "1:865886225620:web:30a7aa1f51f6239bede741"
 }
  
-
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 database = firebase.database()
 
 
 
-
-def index(request):
-    if 'email' in request.session:
-        if'login' in request.session:
-            user_id = request.session.get("localid")
-            user_info = database.child('user').child(user_id).get().val()
-            if user_info:
-                pass_data = {
-                    "user_id":user_id,
-                    "username":user_info['username'],
-                    "full_name":user_info['full_name'],
-                    "email":user_info['email']
-                }
-                print(pass_data)
-            return render(request, 'base/index.html', {"user_data": pass_data})
+def main(request):
+    if 'email' and 'login' in request.session:
+        user_id = request.session.get("localid")
+        user_info = database.child('user').child(user_id).get().val()
+        if user_info:
+            pass_data = {
+                "user_id":user_id,
+                "username":user_info['username'],
+                "full_name":user_info['full_name'],
+                "email":user_info['email'],
+                "role":user_info['role']
+            }
+        return render(request, 'base/main.html',{'user_data':pass_data})
     request.session.flush()
     return HttpResponseRedirect("/login/")
+
+
+
+def index(request):
+    if 'email' and 'login' in request.session:
+        # user_id = request.session.get("localid")
+        # user_info = database.child('user').child(user_id).get().val()
+        # if user_info:
+        #     pass_data = {
+        #         "user_id":user_id,
+        #         "username":user_info['username'],
+        #         "full_name":user_info['full_name'],
+        #         "email":user_info['email'],
+        #         "role":user_info['role']
+        #     }
+        return render(request, 'base/main.html')
+    request.session.flush()
+    return HttpResponseRedirect("/login/")
+
 
 def loginPage(request):
     if 'email' in request.session:
@@ -117,7 +136,6 @@ def postsignin(request):
     elif "login" in request.POST:
         email = request.POST.get("email")
         password = request.POST.get("password")
-        print(email,password)
         try:
             ret_val = auth.sign_in_with_email_and_password(email, password)
         except:
@@ -162,10 +180,27 @@ def logout(request):
 
 
 
-def blogPost(request):
-    if 'blog_id' in request.POST:
-        user_id = request.session['localid']
-        bolg_id = request.POST.get("blog_ig").strip()
-        blog_title = request.POST.get("title").strip()
-        blog_body = request.POST.get("body").strip()
-        date = datetime.now()
+def create_blog(request):
+
+    def generate_random_id(length=16):
+        characters = string.ascii_letters + string.digits
+        random_id = ''.join(random.choice(characters) for i in range(length))
+        return random_id
+    
+    if 'email' and  'login'  in request.session:
+        if 'blog_post' in request.POST:
+            user_id = request.session['localid']
+            blog_id = generate_random_id()
+            blog_title = request.POST.get("title").strip()
+            blog_body = request.POST.get("body").strip()
+            date = datetime.now()
+
+            pass_data = {
+                    "blog_title": blog_title, 
+                    "blog_body": blog_body,
+                    "created_at": datetime.timestamp(date)
+                    }
+            database.child("blog").child(user_id).child(blog_id).set(pass_data)
+            return HttpResponseRedirect('/createblog/')
+        
+    return render(request, 'base/createblog.html')
