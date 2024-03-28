@@ -120,21 +120,19 @@
                         </div>
                         {% if messages %}
                         {% for message in messages %}
-                        <p class=" 
-                            mt-4 py-3
+                        <p class="
                             {% if message.level == 25 %} 
-                            bg-primary 
+                            bg-success 
                             {% endif %} 
 
                             {% if message.level != 25 %} 
-                            bg-warning 
+                            bg-danger 
                             {% endif %} 
 
-                            px-3 py-2 rounded text-white mb-3 text-center">
+                            px-3 py-3 rounded text-white mb-5 mt-3 text-center">
                             {{message}}</p>
                         {% endfor %}
                         {% endif %}
-
                     </form>
                 </div>
             </div>

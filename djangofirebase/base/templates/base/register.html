@@ -121,16 +121,16 @@
                         </div>
                         {% if messages %}
                         {% for message in messages %}
-                        <p class="  mt-4  py-3
+                        <p class="
                             {% if message.level == 25 %} 
                             bg-success 
                             {% endif %} 
 
                             {% if message.level != 25 %} 
-                            bg-warning 
+                            bg-danger 
                             {% endif %} 
 
-                            px-3 py-2 rounded text-white mb-3 text-center">
+                            px-3 py-3 rounded text-white mb-5 mt-3 text-center">
                             {{message}}</p>
                         {% endfor %}
                         {% endif %}
@@ -152,18 +152,20 @@
 
             <!-- Right -->
             <div>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-facebook-f"></i>
+                <a href="#!" class="text-success-emphasis me-4 bg-warning rounded-5 px-3 py-2">
+                    <i class="fa-brands fa-facebook-f"></i>
                 </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-twitter"></i>
+                <a href="#!" class="text-success-emphasis me-4 bg-warning rounded-5 px-3 py-2">
+                    <i class="fa-brands fa-x-twitter"></i>
                 </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-google"></i>
+                <a href="#!" class="text-success-emphasis me-4 bg-warning rounded-5 px-3 py-2">
+                    <i class="fa-brands fa-google"></i>
                 </a>
-                <a href="#!" class="text-white">
+
+                <a href="#!" class="text-success-emphasis bg-warning rounded-5 px-3 py-2">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
+
             </div>
             <!-- Right -->
         </div>

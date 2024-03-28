@@ -51,16 +51,6 @@ def main(request):
 
 def index(request):
     if 'email' and 'login' in request.session:
-        # user_id = request.session.get("localid")
-        # user_info = database.child('user').child(user_id).get().val()
-        # if user_info:
-        #     pass_data = {
-        #         "user_id":user_id,
-        #         "username":user_info['username'],
-        #         "full_name":user_info['full_name'],
-        #         "email":user_info['email'],
-        #         "role":user_info['role']
-        #     }
         return render(request, 'base/main.html')
     request.session.flush()
     return HttpResponseRedirect("/login/")
@@ -129,8 +119,9 @@ def postsignin(request):
                 "created_at": datetime.timestamp(now)
                 }
             database.child("user").child(ret_val["localId"]).set(pass_data)
+            # messages.set_level(request,level=25)
             messages.success(request,'User Created Successfully. Please use creds for login.')
-            return HttpResponseRedirect("/register/")
+            return HttpResponseRedirect('/login/')
         return HttpResponseRedirect("/register/")
     
     elif "login" in request.POST:
@@ -194,7 +185,6 @@ def create_blog(request):
             blog_title = request.POST.get("title").strip()
             blog_body = request.POST.get("body").strip()
             date = datetime.now()
-
             pass_data = {
                     "blog_title": blog_title, 
                     "blog_body": blog_body,
