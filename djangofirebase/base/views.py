@@ -35,15 +35,27 @@ def main(request):
     if 'email' and 'login' in request.session:
         user_id = request.session.get("localid")
         user_info = database.child('user').child(user_id).get().val()
+        blogs= database.child('blog').child(user_id).get().val()
+        blog_data = []
+        
+        for blog_id in blogs:
+            blog= database.child('blog').child(user_id).child(blog_id).get().val()
+            blog_val = {
+                "title": blog['blog_title'],
+                "body": blog['blog_body'],
+                "created_at": datetime.fromtimestamp(blog['created_at'])
+            }
+            blog_data.append(blog_val)
+
         if user_info:
-            pass_data = {
+            user_data = {
                 "user_id":user_id,
                 "username":user_info['username'],
                 "full_name":user_info['full_name'],
                 "email":user_info['email'],
                 "role":user_info['role']
             }
-        return render(request, 'base/main.html',{'user_data':pass_data})
+        return render(request, 'base/main.html',{'user_data':user_data,'blog_data':blog_data})
     request.session.flush()
     return HttpResponseRedirect("/login/")
 
@@ -194,3 +206,24 @@ def create_blog(request):
             return HttpResponseRedirect('/createblog/')
         
     return render(request, 'base/createblog.html')
+
+
+def view_blog(request):
+    if 'email' and 'login' in request.session:
+        user_id = request.session.get("localid")
+        blogs= database.child('blog').child(user_id).get().val()
+
+        for blog in blogs:
+            print(blog)
+
+        # if user_info:
+        #     pass_data = {
+        #         "user_id":user_id,
+        #         "username":user_info['username'],
+        #         "full_name":user_info['full_name'],
+        #         "email":user_info['email'],
+        #         "role":user_info['role']
+        #     }
+        return render(request, 'base/index.html',{})
+    request.session.flush()
+    return HttpResponseRedirect("/login/")

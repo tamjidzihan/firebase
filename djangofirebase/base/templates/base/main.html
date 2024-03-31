@@ -180,12 +180,24 @@
     <!--Main layout-->
     <main style="margin-top: 58px;">
 
-        <div class="my-5 container ">
+        <div class="my-5 container  ">
             {% if user_data %}
             <div class="container pt-4">
                 <h3 class=" ">Welcome {{ user_data.full_name }}</h3>
             </div>
             {% endif %}
+
+            {% for blog in blog_data %}
+            <div class="container my-5 overflow-visible">
+                <h3>Title: {{ blog.title }}</h3>
+                <p class="fw-light">
+                    <span class="fw-bold ">Published at: </span>{{ blog.created_at }}
+                </p>
+                <p>{{ blog.body }}</p>
+
+            </div>
+
+            {% endfor %}
 
 
             {% block content %}
@@ -203,7 +215,7 @@
 
 
 
-    <footer class=" fixed-bottom ">
+    <footer class=" sticky-bottom ">
         <div
             class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-3 px-4 px-xl-5 bg-primary">
             <!-- Copyright -->

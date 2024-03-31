@@ -10,6 +10,7 @@ urlpatterns = [
     path('register/', views.registerPage, name="registerPage"),
     # path('forgetpass/', views.forgetpassPage, name="forgetPassPage"),
     path('postsign/', views.postsignin, name="postsignin"),
+    path('viewblogs/',views.view_blog,name='viewblogs'),
     path('logout/', views.logout, name="logout"),
     path('createblog/',views.create_blog,name='createblog')
 
