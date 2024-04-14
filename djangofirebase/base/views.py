@@ -6,15 +6,12 @@ import random
 import string
 from datetime import datetime
 
-
-
 #firebase lib
 import pyrebase
 
-# Create your views here.
 
 
-#firebase Database Configaretion
+# firebase Database Configaretion
 config = {
   "apiKey": "AIzaSyCSCJVxNn8N28Hpxt2SuBQz2-HyqMFAeH8",
   "authDomain": "testproject-24d54.firebaseapp.com",
@@ -25,6 +22,7 @@ config = {
   "appId": "1:865886225620:web:30a7aa1f51f6239bede741"
 }
  
+# firebase Database Initialization
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 database = firebase.database()
@@ -37,15 +35,16 @@ def main(request):
         user_info = database.child('user').child(user_id).get().val()
         blogs= database.child('blog').child(user_id).get().val()
         blog_data = []
-        
-        for blog_id in blogs:
-            blog= database.child('blog').child(user_id).child(blog_id).get().val()
-            blog_val = {
-                "title": blog['blog_title'],
-                "body": blog['blog_body'],
-                "created_at": datetime.fromtimestamp(blog['created_at'])
-            }
-            blog_data.append(blog_val)
+
+        if blogs:
+            for blog_id in blogs:
+                blog= database.child('blog').child(user_id).child(blog_id).get().val()
+                blog_val = {
+                    "title": blog['blog_title'],
+                    "body": blog['blog_body'],
+                    "created_at": datetime.fromtimestamp(blog['created_at'])
+                }
+                blog_data.append(blog_val)
 
         if user_info:
             user_data = {
